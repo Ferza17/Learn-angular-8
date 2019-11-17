@@ -7,14 +7,35 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   // You Must declare variabel is an empty array. if you dont delare [] that will be an error
-  servers = [];
+  serverElements = [{
+    type: 'server',
+    name: 'Test Server',
+    content: 'Just a test!'
+  }];
 
-  onAddServer() {
-    this.servers.push('Another Server');
+  // this will be binding into a cockpit which have a method onAddServer and get value from that
+  onServerAdded(serverData: {serverName: string, serverContent: string}) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
   }
 
-  onRemoveServer(id: number) {
-    const position = id + 1;
-    this.servers.splice(position, 1);
+  // this will be binding into a cockpit which have a method onAddBlueprint and get value from that
+  onBlueprintAdded(blueprintData: {serverName: string, serverContent: string}) {
+    this.serverElements.push({
+      type: 'blueprint',
+      name: blueprintData.serverName,
+      content: blueprintData.serverContent
+    });
+  }
+
+  onChangeFirst() {
+    this.serverElements[0].name = 'Changed!';
+  }
+
+  onDestroyFirst() {
+    this.serverElements.splice(0, 1);
   }
 }
